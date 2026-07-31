@@ -1,0 +1,97 @@
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f5f5f5;
+}
+
+.login-card{
+    width:380px;
+    background:white;
+    padding:40px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    text-align:center;
+}
+
+.login-card h1{
+    color:#ff6b35;
+    margin-bottom:10px;
+}
+
+.login-card h2{
+    margin-bottom:10px;
+}
+
+.login-card p{
+    color:#777;
+    margin-bottom:25px;
+}
+
+.login-card form{
+    display:flex;
+    flex-direction:column;
+}
+
+.login-card input{
+    padding:14px;
+    margin-bottom:18px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:16px;
+}
+
+.login-card button{
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#ff6b35;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+}
+
+.login-card button:hover{
+    background:#e95b2d;
+}
+
+.bottom-text{
+    margin-top:20px;
+}
+
+.bottom-text a{
+    color:#ff6b35;
+    text-decoration:none;
+    font-weight:bold;
+}
+.dietary-section {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.dietary-section > label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.dietary-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dietary-options label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.dietary-options input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}

@@ -1,0 +1,32 @@
+.stats{
+    padding:90px 8%;
+    background:#ff6b35;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:30px;
+}
+
+.stat-card{
+    background:white;
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.stat-card:hover{
+    transform:translateY(-10px);
+}
+
+.stat-card h1{
+    font-size:50px;
+    color:#ff6b35;
+    margin-bottom:15px;
+}
+
+.stat-card p{
+    font-size:20px;
+    color:#444;
+    font-weight:600;
+}

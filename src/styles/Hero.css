@@ -1,0 +1,17 @@
+.hero{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    min-height:85vh;
+    padding:60px 8%;
+    background:#f8fafc;
+}
+
+.hero-left{
+    flex:1;
+}
+
+.hero-left h4{
+    color:#ff6b35;
+    font-size:20px;
+}

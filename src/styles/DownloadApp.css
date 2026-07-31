@@ -1,0 +1,80 @@
+.download-app{
+    padding:90px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:60px;
+    background:#fff;
+    flex-wrap:wrap;
+}
+
+.download-left{
+    flex:1;
+}
+
+.download-left h2{
+    font-size:48px;
+    margin-bottom:20px;
+    color:#222;
+}
+
+.download-left p{
+    font-size:18px;
+    color:#666;
+    line-height:1.8;
+    margin-bottom:35px;
+}
+
+.store-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.store-buttons button{
+    padding:16px 28px;
+    border:none;
+    border-radius:12px;
+    background:#ff6b35;
+    color:white;
+    font-size:17px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.store-buttons button:hover{
+    transform:translateY(-5px);
+    background:#e65a28;
+}
+
+.download-right{
+    flex:1;
+    text-align:center;
+}
+
+.download-right img{
+    width:350px;
+    max-width:100%;
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+}
+
+@media(max-width:768px){
+
+.download-app{
+flex-direction:column;
+text-align:center;
+}
+
+.store-buttons{
+justify-content:center;
+}
+
+.download-left h2{
+font-size:38px;
+}
+
+}
