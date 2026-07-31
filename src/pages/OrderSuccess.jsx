@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "../styles/orderSuccess.css";
+import "../styles/OrderSuccess.css";
 
 function OrderSuccess() {
   const navigate = useNavigate();

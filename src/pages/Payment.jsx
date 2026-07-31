@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import useCart from "../hooks/useCart";
-import "../styles/payment.css";
+import "../styles/Payment.css";
 import API_URL from "../api";
 
 function Payment() {

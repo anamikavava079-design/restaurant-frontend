@@ -1,4 +1,4 @@
-import "../styles/categories.css";
+import "../styles/Categories.css";
 
 const categories = [
   { icon: "🍔", name: "Burger" },
