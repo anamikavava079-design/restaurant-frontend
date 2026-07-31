@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "../styles/checkout.css";
+import "../styles/Checkout.css";
 import useCart from "../hooks/useCart";
 
 function Checkout() {
