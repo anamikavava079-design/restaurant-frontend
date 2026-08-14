@@ -46,38 +46,46 @@ function CartProvider({ children }) {
   }, [customerId]);
 
   // -------------------------
-  // Add Item
-  // -------------------------
-  const addToCart = async (item, customization = "") => {
-    if (!customerId) {
-      console.error("No logged-in customer found.");
-      return;
+// Add Item
+// -------------------------
+const addToCart = async (item) => {
+  if (!customerId) {
+    console.error("No logged-in customer found.");
+    return;
+  }
+
+  // Convert selected options into a readable string
+  const customization = [
+    ...(item.selectedOptions || []).map(
+      (opt) => `${opt.category}: ${opt.option}`
+    ),
+    item.notes ? `Special Instructions: ${item.notes}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+  try {
+    const res = await fetch(`${API}/cart/add/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customer_id: customerId,
+        menu_item_id: item.id,
+        quantity: 1,
+        customization,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to add item: ${res.status}`);
     }
 
-    try {
-      const res = await fetch(`${API}/cart/add/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          customer_id: customerId,
-          menu_item_id: item.id,
-          quantity: 1,
-          customization,
-        }),
-      });
-
-      if (!res.ok) {
-        throw new Error(`Failed to add item: ${res.status}`);
-      }
-
-      await loadCart();
-    } catch (err) {
-      console.error("Error adding to cart:", err);
-    }
-  };
-
+    await loadCart();
+  } catch (err) {
+    console.error("Error adding to cart:", err);
+  }
+};
   // -------------------------
   // Increase Quantity
   // -------------------------
