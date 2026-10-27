@@ -36,15 +36,13 @@ function Navbar() {
   const goToAbout = (e) => {
     e.preventDefault();
 
+    // one direct jump (smooth scrolling is unreliable in some browsers);
+    // 80px = the fixed navbar's height, so it doesn't cover the footer
     const scrollToFooter = (footer) => {
-      footer.scrollIntoView({ behavior: "smooth" });
-
-      // some browsers skip smooth scrolling -- jump there instead
-      setTimeout(() => {
-        if (footer.getBoundingClientRect().top > window.innerHeight) {
-          footer.scrollIntoView();
-        }
-      }, 700);
+      window.scrollTo(
+        0,
+        footer.getBoundingClientRect().top + window.scrollY - 80
+      );
     };
 
     if (location.pathname !== "/") navigate("/");
