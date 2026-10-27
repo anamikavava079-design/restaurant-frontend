@@ -160,6 +160,27 @@ function Menu() {
     );
   });
 
+  // While a filter or search is active, show the filtered dishes right
+  // under the filter buttons instead of the (unfiltered) recommendations.
+  const isFiltering =
+    selectedMood !== "All" ||
+    selectedCategory !== "All" ||
+    search.trim() !== "";
+
+  const filterLabel = [
+    selectedCategory !== "All" ? selectedCategory : null,
+    selectedMood !== "All" ? selectedMood : null,
+    search.trim() ? `"${search.trim()}"` : null,
+  ]
+    .filter(Boolean)
+    .join(" + ");
+
+  const resetFilters = () => {
+    setSelectedMood("All");
+    setSelectedCategory("All");
+    setSearch("");
+  };
+
   const handleOptionChange = (
   itemId,
   category,
@@ -295,8 +316,62 @@ return (
         ))}
       </div>
 
+      {isFiltering && (
+        <p
+          style={{
+            textAlign: "center",
+            margin: "10px 0 20px",
+            color: "#555",
+          }}
+        >
+          Showing {filteredItems.length}{" "}
+          {filteredItems.length === 1 ? "dish" : "dishes"} for{" "}
+          <strong>{filterLabel}</strong>{" "}
+          <button
+            onClick={resetFilters}
+            style={{
+              marginLeft: "8px",
+              border: "none",
+              background: "none",
+              color: "#ff6b35",
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+          >
+            ✕ Clear filters
+          </button>
+        </p>
+      )}
+
+      {isFiltering && filteredItems.length === 0 && (
+        <div
+          style={{
+            textAlign: "center",
+            padding: "40px 20px",
+            color: "#777",
+          }}
+        >
+          <p style={{ fontSize: "40px" }}>🍽️</p>
+          <p>No dishes match this filter right now.</p>
+          <button
+            onClick={resetFilters}
+            style={{
+              marginTop: "12px",
+              padding: "10px 20px",
+              border: "none",
+              borderRadius: "20px",
+              background: "#ff6b35",
+              color: "white",
+              cursor: "pointer",
+            }}
+          >
+            Show all dishes
+          </button>
+        </div>
+      )}
+
       {/* Dietary Recommendations */}
-      {recommendedItems.length > 0 && (
+      {!isFiltering && recommendedItems.length > 0 && (
         <>
           <h2 className="recommend-title">
             ⭐ Recommended For You
@@ -325,7 +400,7 @@ return (
       )}
 
       {/* Previous Order Recommendations */}
-      {previousRecommendations.length > 0 && (
+      {!isFiltering && previousRecommendations.length > 0 && (
         <>
           <h2 className="recommend-title">
             🍽️ Based On Your Previous Orders
