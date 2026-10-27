@@ -1,16 +1,66 @@
 import { createContext, useEffect, useState } from "react";
 import API_URL from "../api";
+import { getOfferDiscount } from "../utils/offers";
 
 export const CartContext = createContext();
 
 const API = `${API_URL}/api`;
 
+const OFFER_KEY = "foodbot-offer";
+
+function loadSavedOffer() {
+  try {
+    return JSON.parse(localStorage.getItem(OFFER_KEY));
+  } catch {
+    return null;
+  }
+}
+
 function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [itemsTotal, setItemsTotal] = useState(0);
+  const [claimedOffer, setClaimedOffer] = useState(loadSavedOffer);
+  const [previousOrderCount, setPreviousOrderCount] = useState(0);
 
   const user = JSON.parse(localStorage.getItem("foodbot-user"));
   const customerId = user?.id;
+
+  // -------------------------
+  // Offers
+  // -------------------------
+  const claimOffer = (offer) => {
+    localStorage.setItem(OFFER_KEY, JSON.stringify(offer));
+    setClaimedOffer(offer);
+  };
+
+  const removeOffer = () => {
+    localStorage.removeItem(OFFER_KEY);
+    setClaimedOffer(null);
+  };
+
+  // needed for "first order" offers
+  const loadOrderCount = async () => {
+    if (!customerId) return;
+
+    try {
+      const res = await fetch(
+        `${API}/orders/list/?customer_id=${customerId}`
+      );
+      const orders = await res.json();
+
+      setPreviousOrderCount(
+        Array.isArray(orders)
+          ? orders.filter((o) => o.status !== "Cancelled").length
+          : 0
+      );
+    } catch (err) {
+      console.error("Error loading orders:", err);
+    }
+  };
+
+  useEffect(() => {
+    loadOrderCount();
+  }, [customerId]);
 
   // -------------------------
   // Load Cart
@@ -219,14 +269,20 @@ const addToCart = async (item) => {
     0
   );
 
-  const gst = +(itemsTotal * 0.05).toFixed(2);
+  const { amount: offerDiscount, message: offerMessage } =
+    getOfferDiscount(claimedOffer, cart, previousOrderCount);
+
+  // GST is charged on the price after the offer discount
+  const gst = +((itemsTotal - offerDiscount) * 0.05).toFixed(2);
 
   const deliveryFee = itemsTotal > 0 ? 40 : 0;
 
-  const grandTotal =
-    Number(itemsTotal) +
+  const grandTotal = +(
+    Number(itemsTotal) -
+    Number(offerDiscount) +
     Number(gst) +
-    Number(deliveryFee);
+    Number(deliveryFee)
+  ).toFixed(2);
 
   return (
     <CartContext.Provider
@@ -243,6 +299,12 @@ const addToCart = async (item) => {
         deliveryFee,
         grandTotal,
         loadCart,
+        claimedOffer,
+        claimOffer,
+        removeOffer,
+        offerDiscount,
+        offerMessage,
+        loadOrderCount,
       }}
     >
       {children}
