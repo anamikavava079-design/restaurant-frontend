@@ -16,14 +16,14 @@ function Hero() {
         <span className="hero-badge">🤖 AI-powered food ordering</span>
 
         <h1>
-          Delicious food,
+          Food you love,
           <br />
-          <span>ordered in a chat.</span>
+          <span>just a chat away.</span>
         </h1>
 
         <p>
           Browse the menu, get dishes picked for your mood, book a table and
-          track your order -- just by chatting with FoodBot.
+          track your order, all by chatting with FoodBot.
         </p>
 
         <div className="hero-buttons">
