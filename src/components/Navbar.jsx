@@ -80,6 +80,13 @@ function Navbar() {
             <Link to="/orders">Orders</Link>
           </li>
         )}
+
+        {/* Kitchen display for restaurant staff */}
+        {["admin", "support"].includes(user?.role) && (
+          <li>
+            <Link to="/kitchen">Kitchen</Link>
+          </li>
+        )}
       </ul>
 
       {/* Right Side */}
