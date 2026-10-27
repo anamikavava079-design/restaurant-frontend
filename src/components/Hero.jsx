@@ -67,15 +67,6 @@ function Hero() {
           alt="Cheese pizza"
         />
 
-        <div className="hero-card hero-card-delivery">
-          🛵 <span>Fast delivery<br /><small>in 30 minutes</small></span>
-        </div>
-
-        <div className="hero-card hero-card-chat">
-          <p className="chat-user">Add 2 pizzas 🍕</p>
-          <p className="chat-bot">✅ Added to your cart!</p>
-        </div>
-
       </div>
 
     </section>
