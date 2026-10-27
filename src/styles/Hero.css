@@ -1,17 +1,280 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap");
+
 .hero{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    min-height:85vh;
-    padding:60px 8%;
-    background:#f8fafc;
+    gap:60px;
+    min-height:100vh;
+    /* top padding clears the fixed 80px navbar */
+    padding:130px 8% 70px;
+    background:
+        radial-gradient(circle at 85% 20%, rgba(255,107,53,.18), transparent 45%),
+        radial-gradient(circle at 10% 90%, rgba(255,193,7,.15), transparent 40%),
+        #fff8f3;
+    overflow:hidden;
 }
+
+/* ---------- left side ---------- */
 
 .hero-left{
     flex:1;
+    max-width:560px;
+    text-align:left;
 }
 
-.hero-left h4{
+.hero-badge{
+    display:inline-block;
+    background:#ffe8dd;
+    color:#e8552a;
+    font-weight:600;
+    font-size:15px;
+    padding:8px 16px;
+    border-radius:30px;
+    margin-bottom:22px;
+}
+
+.hero-left h1{
+    font-family:'Poppins','Segoe UI',sans-serif;
+    font-size:58px;
+    line-height:1.12;
+    font-weight:800;
+    color:#1f2937;
+    margin:0 0 20px;
+    letter-spacing:-1px;
+}
+
+.hero-left h1 span{
     color:#ff6b35;
-    font-size:20px;
+}
+
+.hero-left p{
+    font-size:19px;
+    line-height:1.6;
+    color:#555;
+    margin-bottom:34px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.order-btn,
+.book-btn{
+    display:inline-block;
+    padding:15px 32px;
+    border-radius:40px;
+    font-size:17px;
+    font-weight:700;
+    transition:.25s;
+}
+
+.order-btn{
+    background:#ff6b35;
+    color:white;
+    box-shadow:0 10px 25px rgba(255,107,53,.35);
+}
+
+.order-btn:hover{
+    background:#e8552a;
+    transform:translateY(-2px);
+}
+
+.book-btn{
+    background:white;
+    color:#1f2937;
+    border:2px solid #1f2937;
+}
+
+.book-btn:hover{
+    background:#1f2937;
+    color:white;
+}
+
+.hero-stats{
+    display:flex;
+    gap:36px;
+    margin-top:44px;
+}
+
+.hero-stats div{
+    display:flex;
+    flex-direction:column;
+}
+
+.hero-stats strong{
+    font-family:'Poppins','Segoe UI',sans-serif;
+    font-size:26px;
+    color:#1f2937;
+}
+
+.hero-stats span{
+    font-size:14px;
+    color:#777;
+}
+
+/* ---------- right side ---------- */
+
+.hero-right{
+    flex:1;
+    position:relative;
+    max-width:560px;
+}
+
+.hero-image{
+    border-radius:32px;
+    overflow:hidden;
+    box-shadow:0 30px 60px rgba(0,0,0,.18);
+    transform:rotate(2deg);
+}
+
+.hero-image img{
+    display:block;
+    width:100%;
+    height:440px;
+    object-fit:cover;
+}
+
+.hero-mini-dish{
+    position:absolute;
+    top:-34px;
+    right:-24px;
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:50%;
+    border:6px solid white;
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+}
+
+.hero-card{
+    position:absolute;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    padding:14px 18px;
+    animation:hero-float 4s ease-in-out infinite;
+}
+
+.hero-card-delivery{
+    top:40px;
+    left:-40px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:28px;
+}
+
+.hero-card-delivery span{
+    font-size:15px;
+    font-weight:700;
+    color:#1f2937;
+    line-height:1.3;
+}
+
+.hero-card-delivery small{
+    font-weight:400;
+    color:#777;
+}
+
+.hero-card-chat{
+    bottom:-26px;
+    right:30px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    min-width:210px;
+    animation-delay:1.5s;
+}
+
+.hero-card-chat p{
+    margin:0;
+    font-size:14px;
+    padding:8px 12px;
+    border-radius:12px;
+}
+
+.chat-user{
+    align-self:flex-end;
+    background:#ff6b35;
+    color:white;
+}
+
+.chat-bot{
+    align-self:flex-start;
+    background:#f1f1f1;
+    color:#1f2937;
+}
+
+@keyframes hero-float{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+}
+
+/* ---------- tablets & phones ---------- */
+
+@media (max-width:992px){
+    .hero{
+        flex-direction:column;
+        text-align:center;
+        padding:120px 6% 80px;
+        gap:70px;
+    }
+
+    .hero-left{
+        text-align:center;
+        max-width:640px;
+    }
+
+    .hero-left h1{
+        font-size:44px;
+    }
+
+    .hero-buttons,
+    .hero-stats{
+        justify-content:center;
+    }
+
+    .hero-right{
+        width:100%;
+    }
+}
+
+@media (max-width:576px){
+    .hero-left h1{
+        font-size:34px;
+    }
+
+    .hero-left p{
+        font-size:16px;
+    }
+
+    .hero-stats{
+        gap:22px;
+    }
+
+    .hero-stats strong{
+        font-size:21px;
+    }
+
+    .hero-image img{
+        height:300px;
+    }
+
+    .hero-card-delivery{
+        left:-6px;
+        top:-20px;
+    }
+
+    .hero-mini-dish{
+        width:84px;
+        height:84px;
+        right:-6px;
+    }
+
+    .hero-card-chat{
+        right:10px;
+    }
 }
