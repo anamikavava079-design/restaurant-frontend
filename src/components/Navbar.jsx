@@ -1,5 +1,11 @@
 import "../styles/navbar.css";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import {
   FaShoppingCart,
   FaUserCircle,
@@ -10,8 +16,49 @@ import useCart from "../hooks/useCart";
 function Navbar() {
   const { cart } = useCart();
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const [searchText, setSearchText] = useState(
+    searchParams.get("search") || ""
+  );
+
+  // keep the box in sync when the Menu page clears its search
+  useEffect(() => {
+    setSearchText(searchParams.get("search") || "");
+  }, [searchParams]);
+
   // Check if user is logged in
   const user = JSON.parse(localStorage.getItem("foodbot-user"));
+
+  // "About" = the footer on the Home page (description + contact details)
+  const goToAbout = (e) => {
+    e.preventDefault();
+
+    const scrollToFooter = () =>
+      document
+        .getElementById("footer")
+        ?.scrollIntoView({ behavior: "smooth" });
+
+    if (location.pathname === "/") {
+      scrollToFooter();
+    } else {
+      navigate("/");
+      setTimeout(scrollToFooter, 300);
+    }
+  };
+
+  // Search goes to the Menu page, which filters by the text
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    const text = searchText.trim();
+
+    navigate(
+      text ? `/menu?search=${encodeURIComponent(text)}` : "/menu"
+    );
+  };
 
   return (
     <nav className="navbar">
@@ -46,7 +93,7 @@ function Navbar() {
         )}
 
         <li>
-          <a href="#footer">About</a>
+          <a href="/#footer" onClick={goToAbout}>About</a>
         </li>
       </ul>
 
@@ -55,7 +102,14 @@ function Navbar() {
 
         {/* Search only after login */}
         {user && (
-          <input type="text" placeholder="Search food..." />
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search food..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+          </form>
         )}
 
         {/* Before Login */}
