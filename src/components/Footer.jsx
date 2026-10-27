@@ -1,9 +1,10 @@
 import "../styles/Footer.css";
+import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" id="footer">
 
       <div className="footer-content">
 
@@ -18,10 +19,10 @@ function Footer() {
         <div>
           <h3>Quick Links</h3>
 
-          <p>Home</p>
-          <p>Menu</p>
-          <p>Booking</p>
-          <p>Cart</p>
+          <p><Link to="/" style={{ color: "inherit" }}>Home</Link></p>
+          <p><Link to="/menu" style={{ color: "inherit" }}>Menu</Link></p>
+          <p><Link to="/booking" style={{ color: "inherit" }}>Booking</Link></p>
+          <p><Link to="/cart" style={{ color: "inherit" }}>Cart</Link></p>
         </div>
 
         <div>
