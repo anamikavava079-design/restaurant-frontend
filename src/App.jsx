@@ -11,6 +11,7 @@ import Orders from "./pages/Orders";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import Kitchen from "./pages/Kitchen";
 import ChatBot from "./components/ChatBot";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/kitchen" element={<Kitchen />} />
       </Routes>
 
       {/* Chat widget on every page */}
