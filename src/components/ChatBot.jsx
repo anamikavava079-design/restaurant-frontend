@@ -14,10 +14,21 @@ const QUICK_REPLIES = [
   "Show menu",
   "Today's offers",
   "Recommend something for me",
+  "🔄 Reorder last order",
   "Book a table",
   "Show cart",
   "Where is my order?",
 ];
+
+const CATEGORY_EMOJI = {
+  Burger: "🍔",
+  Pizza: "🍕",
+  Pasta: "🍝",
+  Biryani: "🍛",
+  Drink: "🥤",
+  Dessert: "🍰",
+  Salad: "🥗",
+};
 
 // How often the chat checks for order / waitlist updates
 const POLL_INTERVAL = 15000;
@@ -26,6 +37,8 @@ const ORDER_STATUS_TEXT = {
   Placed: "has been received ✅",
   Preparing: "is being prepared 👨‍🍳",
   "Out for Delivery": "is on the way 🛵",
+  Delayed:
+    "is running a little late ⚠️ Sorry! The kitchen is on it -- about 15 more minutes.",
   Delivered:
     "has been delivered 🎉 Enjoy your meal!\nTell me how it was, e.g. 'feedback 5 stars, loved it'.",
   Cancelled: "was cancelled ❌",
@@ -46,7 +59,8 @@ function ChatBot() {
     {
       sender: "bot",
       text:
-        "👋 Hello! I'm FoodBot AI.\nAsk me anything about our menu, bookings, delivery or payments.",
+        "👋 Hello! I'm FoodBot AI.\nTap a category to see the dishes, or ask me anything about orders, bookings, delivery or payments.",
+      categories: [],
     },
   ]);
 
@@ -77,6 +91,24 @@ function ChatBot() {
   const addBotMessage = (message) => {
     setMessages((prev) => [...prev, { sender: "bot", ...message }]);
   };
+
+  // PDF flow step 2: "Bot greets and shows menu categories"
+  useEffect(() => {
+    fetch(`${API_URL}/api/menu/`)
+      .then((res) => res.json())
+      .then((items) => {
+        if (!Array.isArray(items)) return;
+
+        const categories = [...new Set(items.map((item) => item.category))];
+
+        setMessages((prev) =>
+          prev.map((msg, index) =>
+            index === 0 ? { ...msg, categories } : msg
+          )
+        );
+      })
+      .catch((err) => console.error("Menu categories error:", err));
+  }, []);
 
   // Live updates: order status changes and "your table is ready"
   // are pushed into the chat without the customer asking.
@@ -239,6 +271,21 @@ function ChatBot() {
                 }
               >
                 {msg.text}
+
+                {/* Menu categories in the greeting */}
+                {msg.categories?.length > 0 && (
+                  <div className="chat-categories">
+                    {msg.categories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => sendMessage(`show ${category}`)}
+                        disabled={loading}
+                      >
+                        {CATEGORY_EMOJI[category] || "🍽️"} {category}
+                      </button>
+                    ))}
+                  </div>
+                )}
 
                 {/* Dish cards with images */}
                 {msg.items?.length > 0 && (
