@@ -1,4 +1,4 @@
-.popular-foods{
+﻿.popular-foods{
     padding:80px 8%;
     background:#f8fafc;
 }
@@ -60,4 +60,28 @@
 
 .food-info button:hover{
     background:#e85b28;
+}
+
+/* Tablets */
+@media (max-width:992px){
+    .food-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+/* Phones */
+@media (max-width:576px){
+    .popular-foods{
+        padding:50px 5%;
+    }
+
+    .popular-foods h2{
+        font-size:30px;
+        margin-bottom:25px;
+    }
+
+    .food-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
 }
