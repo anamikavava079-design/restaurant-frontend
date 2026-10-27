@@ -46,6 +46,15 @@ export function getOfferDiscount(offer, cart, previousOrderCount = 0) {
     };
   }
 
+  // loyalty offers unlock after 3 orders (same rule as the chatbot)
+  if (/\b(loyal|loyalty|regular)\b/.test(text) && previousOrderCount < 3) {
+    const remaining = 3 - previousOrderCount;
+    return {
+      amount: 0,
+      message: `${offer.title} unlocks after ${remaining} more order${remaining > 1 ? "s" : ""}.`,
+    };
+  }
+
   const hours = parseHours(text);
   if (hours) {
     const now = new Date().getHours();
