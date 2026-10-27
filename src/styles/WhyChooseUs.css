@@ -1,4 +1,4 @@
-.why{
+﻿.why{
     padding:80px 8%;
     background:white;
 }
@@ -39,4 +39,32 @@
 
 .why-card:hover .why-icon{
     color:white;
+}
+
+/* Tablets */
+@media (max-width:992px){
+    .why-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+/* Phones */
+@media (max-width:576px){
+    .why{
+        padding:50px 5%;
+    }
+
+    .why h2{
+        font-size:30px;
+        margin-bottom:25px;
+    }
+
+    .why-grid{
+        grid-template-columns:1fr;
+        gap:16px;
+    }
+
+    .why-card{
+        padding:25px;
+    }
 }
