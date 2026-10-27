@@ -10,6 +10,9 @@ function Checkout() {
     gst,
     deliveryFee,
     grandTotal,
+    claimedOffer,
+    offerDiscount,
+    offerMessage,
   } = useCart();
 
   const navigate = useNavigate();
@@ -117,6 +120,22 @@ function Checkout() {
                   <span>Items Total</span>
                   <span>₹{Number(itemsTotal).toFixed(2)}</span>
                 </div>
+
+                {claimedOffer && offerDiscount > 0 && (
+                  <div
+                    className="checkout-item"
+                    style={{ color: "#2e7d32", fontWeight: 600 }}
+                  >
+                    <span>Offer: {claimedOffer.title}</span>
+                    <span>-₹{Number(offerDiscount).toFixed(2)}</span>
+                  </div>
+                )}
+
+                {claimedOffer && offerDiscount === 0 && (
+                  <small style={{ color: "#c62828", display: "block" }}>
+                    ⚠️ {offerMessage}
+                  </small>
+                )}
 
                 <div className="checkout-item">
                   <span>GST (5%)</span>
