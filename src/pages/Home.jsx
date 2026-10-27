@@ -8,7 +8,6 @@ import Categories from "../components/Categories";
 import PopularFoods from "../components/PopularFoods";
 import WhyChooseUs from "../components/WhyChooseUs";
 import Footer from "../components/Footer";
-import ChatBot from "../components/ChatBot";
 
 function Home() {
   return (
@@ -23,7 +22,6 @@ function Home() {
       <SpecialOffers />
       <Stats />
       <DownloadApp />
-      <ChatBot />
     </>
   );
 }
