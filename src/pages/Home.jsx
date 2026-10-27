@@ -15,13 +15,13 @@ function Home() {
       <Navbar />
       <Hero />
       <Categories />
+      <SpecialOffers />
       <PopularFoods />
       <WhyChooseUs />
-      <Testimonials />
-      <Footer />
-      <SpecialOffers />
       <Stats />
+      <Testimonials />
       <DownloadApp />
+      <Footer />
     </>
   );
 }
