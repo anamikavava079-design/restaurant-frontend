@@ -1,5 +1,11 @@
 import "../styles/Hero.css";
-import burger from "../assets/burger.png";
+import { Link } from "react-router-dom";
+
+// Free-to-use photos from Unsplash
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1100&q=80&auto=format&fit=crop";
+const PIZZA_IMAGE =
+  "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=300&q=80&auto=format&fit=crop";
 
 function Hero() {
   return (
@@ -7,31 +13,69 @@ function Hero() {
 
       <div className="hero-left">
 
-        <h4>It's not just food</h4>
+        <span className="hero-badge">🤖 AI-powered food ordering</span>
 
         <h1>
-          It's an <span>Experience</span>
+          Delicious food,
+          <br />
+          <span>ordered in a chat.</span>
         </h1>
 
         <p>
-          Order delicious food from the best restaurants with fast delivery
-          and easy table booking.
+          Browse the menu, get dishes picked for your mood, book a table and
+          track your order -- just by chatting with FoodBot.
         </p>
 
         <div className="hero-buttons">
-          <button className="order-btn">
-            Order Now
-          </button>
+          <Link to="/menu" className="order-btn">
+            Order Now →
+          </Link>
 
-          <button className="book-btn">
-            Book Table
-          </button>
+          <Link to="/booking" className="book-btn">
+            Book a Table
+          </Link>
+        </div>
+
+        <div className="hero-stats">
+          <div>
+            <strong>4.8★</strong>
+            <span>Customer rating</span>
+          </div>
+
+          <div>
+            <strong>30 min</strong>
+            <span>Average delivery</span>
+          </div>
+
+          <div>
+            <strong>24/7</strong>
+            <span>FoodBot chat</span>
+          </div>
         </div>
 
       </div>
 
       <div className="hero-right">
-        <img src={burger} alt="Burger" />
+
+        <div className="hero-image">
+          <img src={HERO_IMAGE} alt="A table full of freshly made dishes" />
+        </div>
+
+        <img
+          className="hero-mini-dish"
+          src={PIZZA_IMAGE}
+          alt="Cheese pizza"
+        />
+
+        <div className="hero-card hero-card-delivery">
+          🛵 <span>Fast delivery<br /><small>in 30 minutes</small></span>
+        </div>
+
+        <div className="hero-card hero-card-chat">
+          <p className="chat-user">Add 2 pizzas 🍕</p>
+          <p className="chat-bot">✅ Added to your cart!</p>
+        </div>
+
       </div>
 
     </section>
