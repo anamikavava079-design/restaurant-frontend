@@ -36,17 +36,30 @@ function Navbar() {
   const goToAbout = (e) => {
     e.preventDefault();
 
-    const scrollToFooter = () =>
-      document
-        .getElementById("footer")
-        ?.scrollIntoView({ behavior: "smooth" });
+    const scrollToFooter = (footer) => {
+      footer.scrollIntoView({ behavior: "smooth" });
 
-    if (location.pathname === "/") {
-      scrollToFooter();
-    } else {
-      navigate("/");
-      setTimeout(scrollToFooter, 300);
-    }
+      // some browsers skip smooth scrolling -- jump there instead
+      setTimeout(() => {
+        if (footer.getBoundingClientRect().top > window.innerHeight) {
+          footer.scrollIntoView();
+        }
+      }, 700);
+    };
+
+    if (location.pathname !== "/") navigate("/");
+
+    // wait until the Home page has rendered its footer
+    let tries = 0;
+    const waitForFooter = setInterval(() => {
+      const footer = document.getElementById("footer");
+      tries += 1;
+
+      if (footer || tries > 30) {
+        clearInterval(waitForFooter);
+        if (footer) scrollToFooter(footer);
+      }
+    }, 100);
   };
 
   // Search goes to the Menu page, which filters by the text
