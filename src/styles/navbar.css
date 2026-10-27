@@ -214,3 +214,38 @@
     font-size: 14px;
   }
 }
+
+/* Small phones: keep the logo and buttons from touching */
+@media (max-width: 576px) {
+
+  .navbar {
+    padding: 0 4%;
+  }
+
+  .logo {
+    gap: 6px;
+  }
+
+  .logo-icon {
+    font-size: 26px;
+  }
+
+  .logo span {
+    font-size: 20px;
+  }
+
+  .nav-right {
+    gap: 10px;
+  }
+
+  .login-btn,
+  .register-btn {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .icon,
+  .menu-toggle {
+    font-size: 24px;
+  }
+}
