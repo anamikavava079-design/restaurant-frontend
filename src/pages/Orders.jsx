@@ -11,6 +11,7 @@ function getOrderStage(status) {
     case "Placed":
       return 0;
     case "Preparing":
+    case "Delayed":
       return 1;
     case "Out for Delivery":
       return 2;
@@ -200,7 +201,15 @@ return (
                     <span className="status">{order.status}</span>
 
                     <p className="delivery-time">
-                      ETA: <strong>25–30 mins</strong>
+                      {order.status === "Delayed" ? (
+                        <strong style={{ color: "#e65100" }}>
+                          ⚠️ Running late -- about 15 more mins
+                        </strong>
+                      ) : (
+                        <>
+                          ETA: <strong>25–30 mins</strong>
+                        </>
+                      )}
                     </p>
                   </div>
                 </div>
