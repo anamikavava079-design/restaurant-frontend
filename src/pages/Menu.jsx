@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/menu.css";
 import useCart from "../hooks/useCart";
@@ -11,7 +12,13 @@ function Menu() {
   const [menuItems, setMenuItems] = useState([]);
   const [recommendedItems, setRecommendedItems] = useState([]);
   const [previousRecommendations, setPreviousRecommendations] = useState([]);
-  const [search, setSearch] = useState("");
+  // the navbar search box sends people here as /menu?search=pizza
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+
+  useEffect(() => {
+    setSearch(searchParams.get("search") || "");
+  }, [searchParams]);
 
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedMood, setSelectedMood] = useState("All");
@@ -90,9 +97,10 @@ function Menu() {
   };
 
   const filteredItems = menuItems.filter((item) => {
-    const searchMatch = item.name
+    const searchMatch = [item.name, item.category, item.description]
+      .join(" ")
       .toLowerCase()
-      .includes(search.toLowerCase());
+      .includes(search.trim().toLowerCase());
 
     const categoryMatch =
       selectedCategory === "All" ||
@@ -179,6 +187,7 @@ function Menu() {
     setSelectedMood("All");
     setSelectedCategory("All");
     setSearch("");
+    setSearchParams({});
   };
 
   const handleOptionChange = (
