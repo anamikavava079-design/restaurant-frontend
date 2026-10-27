@@ -15,6 +15,10 @@ function Payment() {
     deliveryFee,
     grandTotal,
     clearCart,
+    claimedOffer,
+    removeOffer,
+    offerDiscount,
+    loadOrderCount,
   } = useCart();
 
   const [paymentMethod, setPaymentMethod] = useState("Cash on Delivery");
@@ -103,9 +107,19 @@ function Payment() {
 
       await clearCart();
 
+      // an offer is used once, then it's gone
+      const usedOffer =
+        claimedOffer && offerDiscount > 0
+          ? { title: claimedOffer.title, discount: offerDiscount }
+          : null;
+
+      if (usedOffer) removeOffer();
+      loadOrderCount();
+
       navigate("/order-success", {
          state: {
            paymentMethod,
+           usedOffer,
          },
       });
     } catch (err) {
@@ -215,7 +229,7 @@ return (
             ) : paymentMethod === "Cash on Delivery" ? (
               "Place Order"
             ) : (
-              `Pay ₹${grandTotal}`
+              `Pay ₹${grandTotal.toFixed(2)}`
             )}
           </button>
 
@@ -249,6 +263,16 @@ return (
             <span>₹{itemsTotal.toFixed(2)}</span>
           </div>
 
+          {claimedOffer && offerDiscount > 0 && (
+            <div
+              className="payment-item"
+              style={{ color: "#2e7d32", fontWeight: 600 }}
+            >
+              <span>Offer: {claimedOffer.title}</span>
+              <span>-₹{offerDiscount.toFixed(2)}</span>
+            </div>
+          )}
+
           <div className="payment-item">
             <span>GST</span>
             <span>₹{gst.toFixed(2)}</span>
@@ -263,7 +287,7 @@ return (
 
           <div className="payment-total">
             <span>Grand Total</span>
-            <span>₹{grandTotal}</span>
+            <span>₹{grandTotal.toFixed(2)}</span>
           </div>
 
         </div>
