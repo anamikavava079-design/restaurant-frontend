@@ -106,10 +106,26 @@ function Menu() {
         break;
 
       case "🥗 Healthy":
+        // Salads, or light (≤ 350 kcal) veg mains -- never pizza,
+        // burgers, desserts or sugary drinks just because they're veg.
         moodMatch =
-          item.is_veg ||
-          item.is_vegan ||
-          item.category === "Salad";
+          item.category === "Salad" ||
+          ((item.is_veg || item.is_vegan) &&
+            Number(item.calories) > 0 &&
+            Number(item.calories) <= 350 &&
+            !["Pizza", "Burger", "Dessert", "Drink"].includes(
+              item.category
+            ));
+        break;
+
+      case "😊 Happy":
+        // comfort favourites
+        moodMatch = [
+          "Pizza",
+          "Burger",
+          "Pasta",
+          "Dessert",
+        ].includes(item.category);
         break;
 
       case "🍰 Sweet":
