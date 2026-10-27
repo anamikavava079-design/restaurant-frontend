@@ -2,7 +2,6 @@ import "../styles/navbar.css";
 import { useEffect, useState } from "react";
 import {
   Link,
-  useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
@@ -17,7 +16,6 @@ function Navbar() {
   const { cart } = useCart();
 
   const navigate = useNavigate();
-  const location = useLocation();
   const [searchParams] = useSearchParams();
 
   const [searchText, setSearchText] = useState(
@@ -31,34 +29,6 @@ function Navbar() {
 
   // Check if user is logged in
   const user = JSON.parse(localStorage.getItem("foodbot-user"));
-
-  // "About" = the footer on the Home page (description + contact details)
-  const goToAbout = (e) => {
-    e.preventDefault();
-
-    // one direct jump (smooth scrolling is unreliable in some browsers);
-    // 80px = the fixed navbar's height, so it doesn't cover the footer
-    const scrollToFooter = (footer) => {
-      window.scrollTo(
-        0,
-        footer.getBoundingClientRect().top + window.scrollY - 80
-      );
-    };
-
-    if (location.pathname !== "/") navigate("/");
-
-    // wait until the Home page has rendered its footer
-    let tries = 0;
-    const waitForFooter = setInterval(() => {
-      const footer = document.getElementById("footer");
-      tries += 1;
-
-      if (footer || tries > 30) {
-        clearInterval(waitForFooter);
-        if (footer) scrollToFooter(footer);
-      }
-    }, 100);
-  };
 
   // Search goes to the Menu page, which filters by the text
   const handleSearch = (e) => {
@@ -102,10 +72,6 @@ function Navbar() {
             <Link to="/orders">Orders</Link>
           </li>
         )}
-
-        <li>
-          <a href="/#footer" onClick={goToAbout}>About</a>
-        </li>
       </ul>
 
       {/* Right Side */}
