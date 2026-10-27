@@ -15,6 +15,10 @@ function Cart() {
   gst,
   deliveryFee,
   grandTotal,
+  claimedOffer,
+  removeOffer,
+  offerDiscount,
+  offerMessage,
 } = useCart();
 
 return (
@@ -101,6 +105,44 @@ return (
               <span>₹{itemsTotal.toFixed(2)}</span>
             </div>
 
+            {claimedOffer && (
+              <>
+                {offerDiscount > 0 && (
+                  <div
+                    className="summary-row"
+                    style={{ color: "#2e7d32", fontWeight: 600 }}
+                  >
+                    <span>Offer: {claimedOffer.title}</span>
+                    <span>-₹{offerDiscount.toFixed(2)}</span>
+                  </div>
+                )}
+
+                <p
+                  style={{
+                    fontSize: "13px",
+                    color: offerDiscount > 0 ? "#2e7d32" : "#c62828",
+                    margin: "4px 0 10px",
+                  }}
+                >
+                  {offerDiscount > 0 ? "🎉 " : "⚠️ "}
+                  {offerMessage}{" "}
+                  <button
+                    onClick={removeOffer}
+                    style={{
+                      border: "none",
+                      background: "none",
+                      color: "#888",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                      fontSize: "12px",
+                    }}
+                  >
+                    Remove
+                  </button>
+                </p>
+              </>
+            )}
+
             <div className="summary-row">
               <span>GST (5%)</span>
               <span>₹{gst.toFixed(2)}</span>
@@ -115,7 +157,7 @@ return (
 
             <div className="summary-row grand-total">
               <span>Grand Total</span>
-              <span>₹{grandTotal}</span>
+              <span>₹{grandTotal.toFixed(2)}</span>
             </div>
 
             <Link to="/checkout">
